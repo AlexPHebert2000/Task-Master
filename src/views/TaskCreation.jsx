@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default () => {
+export default ({listDispatch}) => {
   const [input, setInput] = useState("");
 
   const handleInput = (e,  setter) => {
@@ -8,14 +8,20 @@ export default () => {
   }
 
   const handleAdd = () => {
-    console.log(input);
+    listDispatch({type: "add", payload: input})
     setInput("");
+  }
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter"){
+      handleAdd();
+    }
   }
 
   return (
     <div>
       <div>
-        <input type="text" value={input} onChange={(e) => handleInput(e, setInput)}></input>
+        <input type="text" value={input} onChange={(e) => handleInput(e, setInput)} onKeyDown={handleEnter}></input>
         <button onClick={handleAdd}>Add</button>
       </div>
     </div>
