@@ -1,8 +1,10 @@
+import TaskCreation from "./views/TaskCreation"
+
 function App() {
 
   return (
     <div>
-      <h1>Task Master</h1>
+      <TaskCreation/>
     </div>
   )
 }
