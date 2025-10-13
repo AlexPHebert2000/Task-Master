@@ -1,16 +1,42 @@
-# React + Vite
+# Task Master
+## Compete with other people's to complete your todo list first!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Features
 
-Currently, two official plugins are available:
+- **Set your goals** : Start your challenge by setting out your goals
+- **Pomodoro timer** : An in app pomodoro timer helps you stay on track
+- **Stay Motivated** : Motivational quotes keep you motivated as you work
+- **Check them off** : See your goals disappear as you complete them
+- **Watch the Leaderboard** : See how others are doing with their goals and try to reach the top and be today's **Task Master**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### How it works
 
-## React Compiler
+When you load *Task Master* you first need to set your goals. You can make as many as you like but you need to make at least 3. Then its time to get to work! An in app pomodoro timer helps to keep you on task with interspersed breaks and motivational quotes keep you inpired. As you complete your tasks you cross them off and they move to the completed section of your list so you can focus on whats at hand and see your progress! On the leaderboard you can see your standing, what percentage of your tasks youve completed. Once you hit 100% your spot is locked in, meaning the faster you complete your tasks, the higher up youll be!
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Data and Networking
 
-## Expanding the ESLint configuration
+*Task Master* uses [ZenQuotes API](https://docs.zenquotes.io/zenquotes-documentation/) to provide inspirational quotes. 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**GET** `https://zenquotes.io/api/random`
+  ```json
+  [
+    {
+        "q": "Change is hardest at the beginning, messiest in the middle and best at the end.",
+        "a": "Robin Sharma",
+        "h": "<blockquote>&ldquo;Change is hardest at the beginning, messiest in the middle and best at the end.&rdquo; &mdash; <footer>Robin Sharma</footer></blockquote>"
+    }
+]
+```
+
+*Task Master* uses JSONBin to maintain its leaderboard. \([link](https://api.jsonbin.io/v3/b/68ed27bdae596e708f119844)\)
+```json
+{
+  "initialization": "2025-10-13T16:22:14.334Z",
+  "leaderBoard": [
+    {
+      "user": "Alex",
+      "percentage": 100
+    }
+  ]
+}
+```
