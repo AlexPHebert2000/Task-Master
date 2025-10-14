@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
 import TaskCreation from "./views/TaskCreation"
 
 function App() {
@@ -27,18 +27,16 @@ function App() {
   }
 
   const  [{inProgress, complete}, toDoDispatch] = useReducer(listReducer, {inProgress: [], complete: []})
+
+  const views = {
+    "create": <TaskCreation listDispatch={toDoDispatch} list={inProgress}/>
+  }
+
+  const [currentView, setView] = useState("create");
+
   return (
     <div>
-      <TaskCreation listDispatch={toDoDispatch} list={inProgress}/>
-      <ul>
-        {
-          complete.map((completed) => (
-            <li key={completed} >
-              <s>{completed}</s>
-            </li>
-          ))
-        }
-      </ul>
+      {views[currentView]}
     </div>
   )
 }
