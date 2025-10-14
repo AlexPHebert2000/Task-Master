@@ -19,7 +19,6 @@ function App() {
         const newComplete = [...state.complete];
         newProgress.splice(newProgress.indexOf(payload), 1);
         newComplete.push(payload);
-        console.log(newProgress, newComplete)
         return {...state, inProgress: newProgress, complete: newComplete};
 
       default:
@@ -30,18 +29,7 @@ function App() {
   const  [{inProgress, complete}, toDoDispatch] = useReducer(listReducer, {inProgress: [], complete: []})
   return (
     <div>
-      <TaskCreation listDispatch={toDoDispatch}/>
-      <ul>
-        {
-          inProgress.map((todo) => (
-              <li key={todo} >
-                <p>{todo}</p>
-                <button onClick={() => {toDoDispatch({type: "remove", payload: todo})}}>✕</button>
-                <button onClick={() => {toDoDispatch({type: "complete", payload: todo})}}>✓</button>
-              </li>
-          ))
-        }
-      </ul>
+      <TaskCreation listDispatch={toDoDispatch} list={inProgress}/>
       <ul>
         {
           complete.map((completed) => (
