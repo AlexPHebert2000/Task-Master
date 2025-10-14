@@ -5,7 +5,7 @@ function App() {
 
   const listReducer = (state, {type, payload}) => {
     console.log(state, type, payload)
-    const acceptedActions = ["add", "remove"];
+    const acceptedActions = ["add", "remove", "complete"];
     if (! acceptedActions.includes(type)){ return state }
     switch(type){
       case("add"):
@@ -14,13 +14,20 @@ function App() {
         const newList = [...state.inProgress];
         newList.splice(newList.indexOf(payload), 1)
         return {...state, inProgress: newList}
+      case("complete"):
+        const newProgress = [...state.inProgress];
+        const newComplete = [...state.complete];
+        newProgress.splice(newProgress.indexOf(payload), 1);
+        newComplete.push(payload);
+        console.log(newProgress, newComplete)
+        return {...state, inProgress: newProgress, complete: newComplete};
+
       default:
         return state
     }
   }
 
-  const  [{inProgress}, toDoDispatch] = useReducer(listReducer, {inProgress: []})
-
+  const  [{inProgress, complete}, toDoDispatch] = useReducer(listReducer, {inProgress: [], complete: []})
   return (
     <div>
       <TaskCreation listDispatch={toDoDispatch}/>
@@ -29,8 +36,18 @@ function App() {
           inProgress.map((todo) => (
               <li key={todo} >
                 <p>{todo}</p>
-                <button onClick={() => {toDoDispatch({type: "remove", payload: todo})}}>×</button>
+                <button onClick={() => {toDoDispatch({type: "remove", payload: todo})}}>✕</button>
+                <button onClick={() => {toDoDispatch({type: "complete", payload: todo})}}>✓</button>
               </li>
+          ))
+        }
+      </ul>
+      <ul>
+        {
+          complete.map((completed) => (
+            <li key={completed} >
+              <s>{completed}</s>
+            </li>
           ))
         }
       </ul>
