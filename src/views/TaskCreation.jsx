@@ -24,18 +24,19 @@ export default ({listDispatch, list}) => {
   }
 
   return (
-    <div>
-      <h1>Set your goals</h1>
+    <div class="px-2 py-1">
+      <h1 class="text-3xl mb-3">Set your goals</h1>
       <div>
-        <input type="text" value={input} onChange={(e) => handleInput(e, setInput)} onKeyDown={handleEnter}
-         class="border-2 "
+        <input type="text" placeholder="Wash the dishes"  
+          value={input} onChange={(e) => handleInput(e, setInput)} onKeyDown={handleEnter}
+          class="border-1 rounded-md px-0.5"
         ></input>
-        <button onClick={handleAdd}>Add</button>
+        <button class="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400" onClick={handleAdd}>Add</button>
       </div>
       <div>
         {
           list.map((item) => (
-            <div class="m-0.5"  id="list-item" key={item}>
+            <div class="mt-2"  id="list-item" key={item}>
               <p class="inline mr-2">{item}</p>
               <button class="text-red-500 hover:bg-red-500 hover:text-white border-1 rounded-sm px-1.5" id="removal-button" onClick={() => {handleRemove(item)}}>✕</button>
             </div>
