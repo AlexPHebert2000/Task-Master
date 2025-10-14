@@ -1,5 +1,6 @@
 import { useReducer, useState } from "react"
 import TaskCreation from "./views/TaskCreation"
+import TodoList from "./views/TodoList";
 
 function App() {
 
@@ -29,14 +30,24 @@ function App() {
   const  [{inProgress, complete}, toDoDispatch] = useReducer(listReducer, {inProgress: [], complete: []})
 
   const views = {
-    "create": <TaskCreation listDispatch={toDoDispatch} list={inProgress}/>
+    "create": <TaskCreation listDispatch={toDoDispatch} list={inProgress}/>,
+    "list": <TodoList />
   }
 
   const [currentView, setView] = useState("create");
 
   return (
-    <div>
+    <div class="flex flex-col justify-center content-center">
+      <div class="content-center bg-gray-700 px-5 text-3xl py-2 flex flex-row mb-4 drop-shadow-gray-950/20 drop-shadow-md">
+        <h1 class="text-white font-bold text-center mr-3" >Task Master</h1>
+        <h1 onClick={() => {setView("create")}} class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">📝</h1>
+        <h1 onClick={() => {setView("list")}} class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">☑️</h1>
+        <h1 class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">🕑</h1>
+        <h1 class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">🏆</h1>
+      </div>
+      <div class="flex justify-center">
       {views[currentView]}
+      </div>
     </div>
   )
 }
