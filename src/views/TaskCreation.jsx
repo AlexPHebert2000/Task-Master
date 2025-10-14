@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import Task from "../components/Task";
+
 export default ({listDispatch, list}) => {
   const [input, setInput] = useState("");
 
@@ -19,10 +21,6 @@ export default ({listDispatch, list}) => {
     }
   }
 
-  const handleRemove = (item) => {
-    listDispatch({type: "remove", payload: item})
-  }
-
   return (
     <div class="px-2 py-1">
       <h1 class="text-3xl mb-3">Set your goals</h1>
@@ -35,11 +33,8 @@ export default ({listDispatch, list}) => {
       </div>
       <div>
         {
-          list.map((item) => (
-            <div class="mt-2"  id="list-item" key={item}>
-              <p class="inline mr-2">{item}</p>
-              <button class="text-red-500 hover:bg-red-500 hover:text-white border-1 rounded-sm px-1.5" id="removal-button" onClick={() => {handleRemove(item)}}>✕</button>
-            </div>
+          list.map((item, index) => (
+            <Task title={item} modes={["remove"]} dispatch={listDispatch} key={index}/>
           ))
         }
       </div>
