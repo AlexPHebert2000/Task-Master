@@ -17,7 +17,7 @@ export default ({title, modes, dispatch}) => {
   }
 
   return (
-    <div class="mt-2 "  id="list-item">
+    <div class="mt-2"  id="list-item">
       <p class="inline mr-2">{title}</p>
       {...enableActions()}
     </div>
