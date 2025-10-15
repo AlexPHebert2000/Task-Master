@@ -14,16 +14,24 @@ export default () => {
   const [time, setTime] = useState(modes[mode]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime((time) => time - 1);
-    }, 1000);
+    let interval;
+
+    if (running){
+      interval = setInterval(() => {
+          setTime((time) => time - 1);
+      }, 1000);
+    }
+    else {
+      clearInterval(interval)
+    }
 
     return () => clearInterval(interval);
-  },[]);
+  },[running]);
 
   return (
-    <>
+    <div>
       <h1>{`${Math.floor(time / 60)}:${time % 60 < 10 ? '0' + time % 60 : time % 60}`}</h1>
-    </>
+      <button onClick={() => {setRunning((cur) => !cur)}}>{running ? "stop" : "start"}</button>
+    </div>
   )
 }
