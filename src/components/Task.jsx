@@ -4,8 +4,13 @@ export default ({title, modes, dispatch}) => {
     dispatch({type: "remove", payload: item})
   }
 
+  const handleComplete = (item) => {
+    dispatch({type: "complete", payload: item});
+  }
+
   const actionButtons = {
-    "remove": <button class="text-red-500 hover:bg-red-500 hover:text-white border-1 rounded-sm px-1.5" id="removal-button" onClick={() => {handleRemove(title)}}>✕</button>,
+    "remove": <button class="text-red-500 hover:bg-red-500 hover:text-white border-1 rounded-sm px-1.5"  onClick={() => {handleRemove(title)}}>✕</button>,
+    "complete": <button class="text-green-500 hover:bg-green-500 hover:text-white border-1 rounded-sm px-1.5"  onClick={() => {handleComplete(title)}}>✓</button>
   }
 
   const enableActions = () => {

@@ -31,7 +31,7 @@ function App() {
 
   const views = {
     "create": <TaskCreation listDispatch={toDoDispatch} list={inProgress}/>,
-    "list": <TodoList />
+    "list": <TodoList {...{inProgress, complete}} dispatch={toDoDispatch}/>
   }
 
   const [currentView, setView] = useState("create");
