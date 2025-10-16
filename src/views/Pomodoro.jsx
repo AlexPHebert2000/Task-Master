@@ -3,82 +3,105 @@ import PomodoroPhaseIndicator from "../components/PomodoroPhaseIndicator";
 
 export default () => {
   
-  const [mode, setMode] = useState("focus");
-  const modes = {
-    "focus": 25 * 60,
-    "short": 10 * 60,
-    "long": 30 * 60
-  };
+  const workTime = 25 * 60 // 25 minutes
+  const shortBreakTime = 10 * 60 // 10 minutes
+  const longBreakTime = 30 * 60 // 30 minutes
+  // the phases of pomodoro
+  const phaseTemplate = [
+    {title: "Work", active: true, time: workTime},
+    {title: "Short Break", active: false, time: shortBreakTime},
+    {title: "Work", active: false, time: workTime},
+    {title: "Short Break", active: false, time: shortBreakTime},
+    {title: "Work", active: false, time: workTime},
+    {title: "Short Break", active: false, time: shortBreakTime},
+    {title: "Work", active: false, time: workTime},
+    {title: "Long Break", active: false, time: longBreakTime},
+  ]
 
+  const phaseReducer = (state, {type, payload}) => {
+    // ignore actions not accepted
+    const acceptedActions = ["set"];
+    if (! acceptedActions.includes(type)){ return state }
+
+    console.log(state, type, payload)
+    
+    switch(type){
+      case("set"):
+        // ignore if trying to set to a negative number
+        if (payload < 0){ return state }
+        //  set to 0 if going over 7
+        else if (payload > 7){ payload = 0}
+        // copy phase array
+        const newPhaseArr = [];
+        for (let phase of state.phases){
+          console.log(phase)
+          newPhaseArr.push({...phase})
+        }
+        // set selected phase to active
+        newPhaseArr[payload].active = true;
+        // set previously selected phase to inactive
+        newPhaseArr[state.currentIndex].active = false;
+
+        // return new state
+        return {
+          ...state,
+          "currentIndex": payload,
+          "phases": newPhaseArr,
+          "currentPhase": newPhaseArr[payload]
+        }
+    }
+  }
+  
+  const [{currentPhase, phases, currentIndex}, activePhaseDispatch] = useReducer(phaseReducer, {currentIndex: 0, phases: phaseTemplate, currentPhase: phaseTemplate[0]})
+
+  // Time
+  const [time, setTime] = useState(currentPhase.time);
+
+  // Wether the timer is running
   const [running, setRunning] = useState(true);
-
-  const [time, setTime] = useState(modes[mode]);
 
   useEffect(() => {
     let interval;
 
+    // if not paused, run timer
     if (running){
       interval = setInterval(() => {
-          setTime((time) => time - 1);
+          setTime((time) => time - 1)     
       }, 1000);
     }
+    // otherwise remove it
     else {
       clearInterval(interval)
     }
 
-    return () => clearInterval(interval);
-  },[running]);
-
-  
-  const phaseTemplate = [
-    {title: "Work", active: true},
-    {title: "Short Break", active: false},
-    {title: "Work", active: false},
-    {title: "Short Break", active: false},
-    {title: "Work", active: false},
-    {title: "Short Break", active: false},
-    {title: "Work", active: false},
-    {title: "Long Break", active: false},
-  ]
-
-  const phaseReducer = (state, {type, payload}) => {
-    const acceptedActions = ["set"];
-    if (! acceptedActions.includes(type)){ return state }
-
-    switch(type){
-      case("set"):
-        if (payload < 0){ return state }
-        else if (payload > 7){ payload = 0}
-        const newPhaseArr = [...state.phases]
-        newPhaseArr[payload].active = true;
-        newPhaseArr[state.currentIndex].active = false;
-        return {
-          ...state,
-          currentIndex: payload,
-          phases: newPhaseArr
-        }
+    // if the time has run out then move to the next phase
+    if (time <= 0){
+      setRunning(false);
+      activePhaseDispatch({type: "set", payload: currentIndex + 1});
+      setTime(phases[(currentIndex + 1) % 8]. time)
     }
-  }
 
-  const [{phases, currentIndex}, activePhaseDispatch] = useReducer(phaseReducer, {currentIndex: 0, phases: phaseTemplate})
+    // remove interval on reload
+    return () => clearInterval(interval);
+  },[running, time]);
+
   return (
-    <div>
-      <h1>
+    <div className="flex flex-col justify-center items-center">
+      <h1 className="text-4xl font-semibold text-center">
         {
-          mode === "focus" ? "Time to Focus" :
-          mode === "short" ? "Time for a short break":
-          mode === "long" ? "Time for a long break":
+          currentPhase.title === "Work" ? "Time to Focus" :
+          currentPhase.title === "Short Break" ? "Time for a short break":
+          currentPhase.title === "Long Break" ? "Time for a long break":
           "You broke the site, thanks" 
         }
       </h1>
-      <div className="flex bg-gray-500 p-2 w-2xl justify-between rounded-lg">
+      <div className="flex bg-gray-500 p-2 w-2xl justify-between rounded-lg my-3">
         {phases.map(({title, active}, index) => 
           <PomodoroPhaseIndicator title={title} active={active} index={index}/>
         )}
       </div>
-      <button onClick={() => {activePhaseDispatch({type: "set", payload: currentIndex + 1})}}>Next</button>
-      <h1>{`${Math.floor(time / 60)}:${time % 60 < 10 ? '0' + time % 60 : time % 60}`}</h1>
-      <button onClick={() => {setRunning((cur) => !cur)}}>{running ? "stop" : "start"}</button>
+      <h1 className="text-5xl text-center mb-4">{`${Math.floor(time / 60)}:${time % 60 < 10 ? '0' + time % 60 : time % 60}`}</h1>
+      <button className="font-extrabold drop-shadow-md drop-shadow-black/30 bg-gray-600 hover:bg-gray-700 text-white px-3 py-0.5 text-center pb-1 rounded-lg w-3xs" onClick={() => {setRunning((cur) => !cur)}}>{running ? "||" : "⩥"}</button>
     </div>
   )
 }
