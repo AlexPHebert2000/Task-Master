@@ -22,8 +22,6 @@ export default () => {
     // ignore actions not accepted
     const acceptedActions = ["set"];
     if (! acceptedActions.includes(type)){ return state }
-
-    console.log(state, type, payload)
     
     switch(type){
       case("set"):
@@ -34,7 +32,6 @@ export default () => {
         // copy phase array
         const newPhaseArr = [];
         for (let phase of state.phases){
-          console.log(phase)
           newPhaseArr.push({...phase})
         }
         // set selected phase to active
@@ -97,7 +94,14 @@ export default () => {
       </h1>
       <div className="flex bg-gray-500 p-2 w-2xl justify-between rounded-lg my-3">
         {phases.map(({title, active}, index) => 
-          <PomodoroPhaseIndicator title={title} active={active} index={index}/>
+          <PomodoroPhaseIndicator title={title} active={active} clickHander={
+            () => {
+              if (active) return;
+              setRunning(false);
+              activePhaseDispatch({type: "set", payload: index});
+              setTime(phases[index].time);
+            }
+          }/>
         )}
       </div>
       <h1 className="text-5xl text-center mb-4">{`${Math.floor(time / 60)}:${time % 60 < 10 ? '0' + time % 60 : time % 60}`}</h1>
