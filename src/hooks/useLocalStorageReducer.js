@@ -10,7 +10,5 @@ export default (key, reducer, initialValue) => {
     () => {localStorage.setItem(key, JSON.stringify(value));},
     [key, value]
   )
-  
-  console.log(value)
   return [value, dispatch]
 }
