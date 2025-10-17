@@ -2,7 +2,9 @@ import { useState } from "react";
 
 import Task from "../components/Task";
 
-export default ({listDispatch, list}) => {
+export default ({listDispatch, list, nameState, submitState}) => {
+  const [name, setName] = nameState;
+  const [submitted, toggleSubmit] = submitState;
   const [input, setInput] = useState("");
 
   const handleInput = (e,  setter) => {
@@ -21,9 +23,23 @@ export default ({listDispatch, list}) => {
     }
   }
 
+  const handleSubmit = () => {
+    if (name.length > 0){
+      toggleSubmit(true);
+    }
+  }
+  
   return (
-    <div class="px-2 py-1">
+    <div class="px-2 py-1 flex flex-col justify-center items-center">
       <h1 class="text-4xl mb-6">Set your goals</h1>
+      <div>
+        <input type="text" placeholder="Your Name"  
+          value={name} onChange={(e) => handleInput(e, setName)}
+          class="border-1 rounded-md px-0.5 mr-2"
+        ></input>
+        {submitted ? null : <button class="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400" onClick={handleSubmit}>Submit</button>}
+      </div>
+      <hr className="w-lg my-11"/>
       <div>
         <input type="text" placeholder="Wash the dishes"  
           value={input} onChange={(e) => handleInput(e, setInput)} onKeyDown={handleEnter}

@@ -29,14 +29,17 @@ function App() {
   }
 
   const  [{inProgress, complete}, toDoDispatch] = useReducer(listReducer, {inProgress: [], complete: []})
-
+  const nameState = useState("");
+  const submitState = useState(false)
   const views = {
-    "create": <TaskCreation listDispatch={toDoDispatch} list={inProgress}/>,
+    "create": <TaskCreation listDispatch={toDoDispatch} list={inProgress} nameState={nameState} submitState={submitState}/>,
     "list": <TodoList {...{inProgress, complete}} dispatch={toDoDispatch}/>,
     "timer": <Pomodoro />
   }
 
   const [currentView, setView] = useState("create");
+
+  
 
   return (
     <div class="flex flex-col justify-center content-center">
