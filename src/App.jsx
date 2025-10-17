@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div class="flex flex-col justify-center content-center">
-      <NavBar setView={setView} />
+      <NavBar setView={setView} enableTasks={(inProgress.length + complete.length) > 3 && submitState[0]}/>
       <div class="flex justify-center">
       {views[currentView]}
       </div>

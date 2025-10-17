@@ -62,6 +62,7 @@ export default ({listDispatch, list, nameState, submitState}) => {
           ))
         }
       </div>
+      {list.length > 3 ? null : <h1 className="font-semibold text-red-400">Please add at least 4 tasks to begin!</h1>}
     </div>
   )
 }

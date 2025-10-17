@@ -1,11 +1,11 @@
 import NavButton from "./NavButton"
 
-export default ({setView}) => {
+export default ({setView, enableTasks}) => {
 
   const navOptions = [
     {title: "📝", navigation: () => {setView("create")}, enabled: true},
-    {title: "☑️", navigation: () => {setView("list")}, enabled: true},
-    {title: "🏆", navigation: () => {console.log("Not impemented")}, enabled: true}
+    {title: "☑️", navigation: () => {setView("list")}, enabled: enableTasks},
+    {title: "🏆", navigation: () => {console.warn("Not impemented")}, enabled: true}
   ]
 
   return (
