@@ -35,7 +35,6 @@ function App() {
   });
 
   const nameState = useState("");
-  const submitState = useState(false);
 
   const timeState = useState(25 * 60);
 
@@ -45,7 +44,6 @@ function App() {
         listDispatch={toDoDispatch}
         list={inProgress}
         nameState={nameState}
-        submitState={submitState}
       />
     ),
     list: (
@@ -63,7 +61,7 @@ function App() {
     <div class="flex flex-col justify-center content-center">
       <NavBar
         setView={setView}
-        enableTasks={inProgress.length + complete.length > 3 && submitState[0]}
+        enableTasks={inProgress.length + complete.length > 3 && nameState[0].length}
       />
       <div class="flex justify-center">{views[currentView]}</div>
     </div>
