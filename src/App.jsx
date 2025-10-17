@@ -1,9 +1,12 @@
-import { useReducer, useState } from "react";
+import { useState } from "react";
+
 import useLocalStorageState from "./hooks/useLocalStorageState";
 import useLocalStorageReducer from "./hooks/useLocalStorageReducer";
+
 import TaskCreation from "./views/TaskCreation";
 import TodoList from "./views/TodoList";
 import NavBar from "./components/NavBar";
+import Leaderboard from "./views/Leaderboard";
 
 function App() {
   
@@ -56,6 +59,9 @@ function App() {
         timeState={timeState}
       />
     ),
+    leaderboard: (
+      <Leaderboard />
+    )
   };
 
   const [currentView, setView] = useState("create");

@@ -19,7 +19,7 @@ export default ({ setView, enableTasks }) => {
     {
       title: "🏆",
       navigation: () => {
-        console.warn("Not impemented");
+        setView("leaderboard");
       },
       enabled: true,
     },
