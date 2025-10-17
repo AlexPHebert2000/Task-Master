@@ -1,10 +1,12 @@
 import { useReducer, useState } from "react";
 import useLocalStorageState from "./hooks/useLocalStorageState";
+import useLocalStorageReducer from "./hooks/useLocalStorageReducer";
 import TaskCreation from "./views/TaskCreation";
 import TodoList from "./views/TodoList";
 import NavBar from "./components/NavBar";
 
 function App() {
+  
   const listReducer = (state, { type, payload }) => {
     console.log(state, type, payload);
     const acceptedActions = ["add", "remove", "complete"];
@@ -30,7 +32,7 @@ function App() {
     }
   };
 
-  const [{ inProgress, complete }, toDoDispatch] = useReducer(listReducer, {
+  const [{ inProgress, complete }, toDoDispatch] = useLocalStorageReducer("list", listReducer, {
     inProgress: [],
     complete: [],
   });
