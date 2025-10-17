@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react";
+import useLocalStorageState from "./hooks/useLocalStorageState";
 import TaskCreation from "./views/TaskCreation";
 import TodoList from "./views/TodoList";
 import NavBar from "./components/NavBar";
@@ -34,7 +35,7 @@ function App() {
     complete: [],
   });
 
-  const nameState = useState("");
+  const nameState = useLocalStorageState("name", "");
 
   const timeState = useState(25 * 60);
 
