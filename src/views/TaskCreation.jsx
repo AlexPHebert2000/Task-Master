@@ -28,16 +28,24 @@ export default ({listDispatch, list, nameState, submitState}) => {
       toggleSubmit(true);
     }
   }
+
+  const handleChangeUsername  = () => {
+    toggleSubmit(false);
+  }
   
   return (
     <div class="px-2 py-1 flex flex-col justify-center items-center">
       <h1 class="text-4xl mb-6">Set your goals</h1>
       <div>
-        <input type="text" placeholder="Your Name"  
+        {
+          submitted ?
+          <p className="inline mr-2">{name}</p> :
+          <input type="text" placeholder="Your Name"  
           value={name} onChange={(e) => handleInput(e, setName)}
           class="border-1 rounded-md px-0.5 mr-2"
-        ></input>
-        {submitted ? null : <button class="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400" onClick={handleSubmit}>Submit</button>}
+          ></input>
+        }
+        {submitted ? <button class="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400" onClick={handleChangeUsername}>Change Username</button> : <button class="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400" onClick={handleSubmit}>Submit</button>}
       </div>
       <hr className="w-lg my-11"/>
       <div>
