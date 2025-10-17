@@ -1,8 +1,11 @@
 import Task from "../components/Task"
+import Pomodoro from "./Pomodoro"
 
-export default ({inProgress, complete, dispatch}) => {
+export default ({inProgress, complete, dispatch, timeState}) => {
   return (
-    <div>
+    <div className="flex flex-col items-center">
+      <Pomodoro timeState={timeState} />
+      <hr className="my-5 w-lg"/>
       <h1>Todo List</h1>
       <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
          <div class="bg-red-300">

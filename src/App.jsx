@@ -1,7 +1,6 @@
 import { useReducer, useState } from "react"
 import TaskCreation from "./views/TaskCreation"
-import TodoList from "./views/TodoList";
-import Pomodoro from "./views/Pomodoro";
+import TodoList from "./views/TodoList"; 
 
 function App() {
 
@@ -29,12 +28,15 @@ function App() {
   }
 
   const  [{inProgress, complete}, toDoDispatch] = useReducer(listReducer, {inProgress: [], complete: []})
+
   const nameState = useState("");
   const submitState = useState(false)
+
+  const timeState = useState(25*60);
+
   const views = {
     "create": <TaskCreation listDispatch={toDoDispatch} list={inProgress} nameState={nameState} submitState={submitState}/>,
-    "list": <TodoList {...{inProgress, complete}} dispatch={toDoDispatch}/>,
-    "timer": <Pomodoro />
+    "list": <TodoList {...{inProgress, complete}} dispatch={toDoDispatch} timeState={timeState}/>,
   }
 
   const [currentView, setView] = useState("create");
@@ -47,7 +49,6 @@ function App() {
         <h1 class="text-white font-bold text-center mr-3" >Task Master</h1>
         <h1 onClick={() => {setView("create")}} class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">📝</h1>
         <h1 onClick={() => {setView("list")}} class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">☑️</h1>
-        <h1 onClick={() => {setView("timer")}} class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">🕑</h1>
         <h1 class="mx-3 bg-gray-500/75 drop-shadow-md p-1 rounded-sm">🏆</h1>
       </div>
       <div class="flex justify-center">

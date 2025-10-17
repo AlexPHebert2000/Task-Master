@@ -1,7 +1,7 @@
 import {useState, useEffect, useReducer} from "react";
 import PomodoroPhaseIndicator from "../components/PomodoroPhaseIndicator";
 
-export default () => {
+export default ({timeState}) => {
   
   const workTime = 25 * 60 // 25 minutes
   const shortBreakTime = 10 * 60 // 10 minutes
@@ -52,10 +52,10 @@ export default () => {
   const [{currentPhase, phases, currentIndex}, activePhaseDispatch] = useReducer(phaseReducer, {currentIndex: 0, phases: phaseTemplate, currentPhase: phaseTemplate[0]})
 
   // Time
-  const [time, setTime] = useState(currentPhase.time);
+  const [time, setTime] = timeState;
 
   // Wether the timer is running
-  const [running, setRunning] = useState(true);
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     let interval;
