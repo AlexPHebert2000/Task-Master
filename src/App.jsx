@@ -70,6 +70,21 @@ function App() {
   const [currentView, setView] = useState("create");
 
   useEffect(() => {
+
+    // Manage Local Storage, expires after 24 hours
+    if (!window.localStorage.getItem("timestamp")){
+      window.localStorage.setItem("timestamp", new Date().toJSON());
+    }
+    else {
+      const prevTimestamp = Date.parse(window.localStorage.getItem("timestamp"));
+      const currentTime = Date.now();
+      if (currentTime - prevTimestamp >= 86400000){
+        window.localStorage.setItem("timestamp", new Date().toJSON());
+        window.localStorage.setItem("name", "");
+        window.localStorage.setItem("list", JSON.stringify({inProgress: [], complete: []}));
+      }
+    }
+
     const sendUpdate = () => {
       return updateLeaderboard({id, user: name, percentage: (complete.length  / (complete.length + inProgress.length)) * 100});
     }
