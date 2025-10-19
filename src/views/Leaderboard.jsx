@@ -12,6 +12,8 @@ export default () => {
     }
     leaderboardFetch();
   }, [])
+
+  console.log(leaderboard)
   return (
     <div>
       <h1 className="font-bold text-3xl">Leaderboard</h1>
@@ -20,7 +22,7 @@ export default () => {
           leaderboard ?
           <ol>
             {
-            leaderboard.leaderBoard.map(({user, percentage}) => <li key={user + percentage}>{`${user} : ${percentage}`}</li>)
+            leaderboard.leaderBoard.map(({user, percentage}) => <li key={user + percentage}>{`${user} : ${Number(percentage).toFixed(2)}`}</li>)
             }
           </ol>
           : <h2>Please Wait</h2>

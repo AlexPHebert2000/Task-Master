@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import useLocalStorageState from "./hooks/useLocalStorageState";
 import useLocalStorageReducer from "./hooks/useLocalStorageReducer";
+import { updateLeaderboard } from "./scripts/leaderboard";
 
 import TaskCreation from "./views/TaskCreation";
 import TodoList from "./views/TodoList";
@@ -11,7 +12,6 @@ import Leaderboard from "./views/Leaderboard";
 function App() {
   
   const listReducer = (state, { type, payload }) => {
-    console.log(state, type, payload);
     const acceptedActions = ["add", "remove", "complete"];
     if (!acceptedActions.includes(type)) {
       return state;
@@ -41,6 +41,9 @@ function App() {
   });
 
   const nameState = useLocalStorageState("name", "");
+  const [name, setName] = nameState
+
+  const [id, setId] = useLocalStorageState("id", crypto.randomUUID().slice(0,5))
 
   const timeState = useState(25 * 60);
 
@@ -65,6 +68,16 @@ function App() {
   };
 
   const [currentView, setView] = useState("create");
+
+  useEffect(() => {
+    const sendUpdate = () => {
+      return updateLeaderboard({id, user: name, percentage: (complete.length  / (complete.length + inProgress.length)) * 100});
+    }
+    sendUpdate().then((r) => {
+      console.log("update sent")
+      console.log(r)
+    });
+  }, [complete])
 
   return (
     <div class="flex flex-col justify-center content-center">
