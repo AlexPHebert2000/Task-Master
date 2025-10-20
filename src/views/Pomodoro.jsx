@@ -108,6 +108,7 @@ export default ({ timeState }) => {
           <PomodoroPhaseIndicator
             title={title}
             active={active}
+            key={title + index}
             clickHander={() => {
               if (active) return;
               setRunning(false);

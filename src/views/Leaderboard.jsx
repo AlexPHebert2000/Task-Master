@@ -21,7 +21,7 @@ export default () => {
           leaderboard ?
           <ol>
             {
-            leaderboard.leaderBoard.map(({user, percentage}) => <li key={user + percentage}>{`${user} : ${Number(percentage).toFixed(2)}`}</li>)
+            leaderboard.leaderBoard.map(({user, percentage}, index) => <li key={index}>{`${user} : ${Number(percentage).toFixed(2)}`}</li>)
             }
           </ol>
           : <h2>Please Wait</h2>

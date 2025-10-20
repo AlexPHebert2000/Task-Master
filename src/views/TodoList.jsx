@@ -7,21 +7,21 @@ export default ({ inProgress, complete, dispatch, timeState }) => {
       <Pomodoro timeState={timeState} />
       <hr className="my-5 w-lg" />
       <h1>Todo List</h1>
-      <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-red-300">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-red-300">
           <h2>In Progress</h2>
-          <div class="flex flex-col">
-            {inProgress.map((task) => (
-              <Task title={task} dispatch={dispatch} modes={["complete"]} />
+          <div className="flex flex-col">
+            {inProgress.map((task, index) => (
+              <Task title={task} key={index} dispatch={dispatch} modes={["complete"]} />
             ))}
           </div>
         </div>
 
-        <div class="bg-amber-300">
+        <div className="bg-amber-300">
           <h2>Complete</h2>
           <div>
-            {complete.map((task) => (
-              <Task title={task} dispatch={dispatch} modes={[]} />
+            {complete.map((task, index) => (
+              <Task title={task} key={index} dispatch={dispatch} modes={[]} />
             ))}
           </div>
         </div>

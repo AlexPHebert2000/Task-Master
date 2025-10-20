@@ -94,12 +94,12 @@ function App() {
   }, [complete])
 
   return (
-    <div class="flex flex-col justify-center content-center">
+    <div className="flex flex-col justify-center content-center">
       <NavBar
         setView={setView}
         enableTasks={inProgress.length + complete.length > 3 && nameState[0].length}
       />
-      <div class="flex justify-center">{views[currentView]}</div>
+      <div className="flex justify-center">{views[currentView]}</div>
     </div>
   );
 }

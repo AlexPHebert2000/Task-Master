@@ -10,7 +10,7 @@ export default ({ title, modes, dispatch }) => {
   const actionButtons = {
     remove: (
       <button
-        class="text-red-500 hover:bg-red-500 hover:text-white border-1 rounded-sm px-1.5"
+        className="text-red-500 hover:bg-red-500 hover:text-white border-1 rounded-sm px-1.5"
         onClick={() => {
           handleRemove(title);
         }}
@@ -20,7 +20,7 @@ export default ({ title, modes, dispatch }) => {
     ),
     complete: (
       <button
-        class="text-green-500 hover:bg-green-500 hover:text-white border-1 rounded-sm px-1.5"
+        className="text-green-500 hover:bg-green-500 hover:text-white border-1 rounded-sm px-1.5"
         onClick={() => {
           handleComplete(title);
         }}
@@ -39,8 +39,8 @@ export default ({ title, modes, dispatch }) => {
   };
 
   return (
-    <div class="mt-2" id="list-item">
-      <p class="inline mr-2">{title}</p>
+    <div className="mt-2" id="list-item">
+      <p className="inline mr-2">{title}</p>
       {...enableActions()}
     </div>
   );

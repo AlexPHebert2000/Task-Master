@@ -29,15 +29,15 @@ export default ({ listDispatch, list, nameState, submitState }) => {
   };
 
   return (
-    <div class="px-2 py-1 flex flex-col justify-center items-center">
-      <h1 class="text-4xl mb-6">Set your goals</h1>
+    <div className="px-2 py-1 flex flex-col justify-center items-center">
+      <h1 className="text-4xl mb-6">Set your goals</h1>
       <div>
         <input
           type="text"
           placeholder="Your Name"
           value={name}
           onChange={(e) => handleInput(e, setName)}
-          class="border-1 rounded-md px-0.5 mr-2"
+          className="border-1 rounded-md px-0.5 mr-2"
         ></input>
         {name.length ? null : <h1 className="font-semibold text-red-400">Please Enter a Username</h1>}
       </div>
@@ -49,10 +49,10 @@ export default ({ listDispatch, list, nameState, submitState }) => {
           value={input}
           onChange={(e) => handleInput(e, setInput)}
           onKeyDown={handleEnter}
-          class="border-1 rounded-md px-0.5 mr-2"
+          className="border-1 rounded-md px-0.5 mr-2"
         ></input>
         <button
-          class="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400"
+          className="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400"
           onClick={handleAdd}
         >
           Add
