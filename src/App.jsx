@@ -97,6 +97,7 @@ function App() {
       await updateLeaderboard({id, user: name, percentage: (complete.length  / (complete.length + inProgress.length)) * 100});
       console.log("update sent")
     }
+    sendUpdate()
   }, [complete])
 
   return (
