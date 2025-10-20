@@ -49,7 +49,7 @@ export default ({ listDispatch, list, nameState, submitState }) => {
           value={input}
           onChange={(e) => handleInput(e, setInput)}
           onKeyDown={handleEnter}
-          className="border-1 rounded-md px-0.5 mr-2"
+          className="border-1 rounded-md px-0.5 mr-2 mb-2"
         ></input>
         <button
           className="text-blue-400 border-2 px-1 rounded-sm hover:text-white hover:bg-blue-400"
@@ -58,7 +58,7 @@ export default ({ listDispatch, list, nameState, submitState }) => {
           Add
         </button>
       </div>
-      <div>
+      <div className="flex flex-col h-full items-center">
         {list.map((item, index) => (
           <Task
             title={item}
