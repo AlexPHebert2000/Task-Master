@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import useLocalStorageState from "./hooks/useLocalStorageState";
 import useLocalStorageReducer from "./hooks/useLocalStorageReducer";
-import { updateLeaderboard } from "./scripts/leaderboard";
+import { updateLeaderboard, expireLeaderboard } from "./scripts/leaderboard";
 
 import TaskCreation from "./views/TaskCreation";
 import TodoList from "./views/TodoList";
@@ -71,7 +71,8 @@ function App() {
   const [currentView, setView] = useState("create");
 
   useEffect(() => {
-
+    // Reset Leaderboard if 24 hours since initialization
+    expireLeaderboard()
     // Manage Local Storage, expires after 24 hours
     if (!window.localStorage.getItem("timestamp")){
       window.localStorage.setItem("timestamp", new Date().toJSON());
@@ -81,18 +82,15 @@ function App() {
       const currentTime = Date.now();
       if (currentTime - prevTimestamp >= 86400000){
         window.localStorage.setItem("timestamp", new Date().toJSON());
-        window.localStorage.setItem("name", "");
         window.localStorage.setItem("list", JSON.stringify({inProgress: [], complete: []}));
+        toDoDispatch({type: "clear"});
       }
     }
 
-    const sendUpdate = () => {
-      return updateLeaderboard({id, user: name, percentage: (complete.length  / (complete.length + inProgress.length)) * 100});
-    }
-    sendUpdate().then((r) => {
+    const sendUpdate = async () => {
+      await updateLeaderboard({id, user: name, percentage: (complete.length  / (complete.length + inProgress.length)) * 100});
       console.log("update sent")
-      console.log(r)
-    });
+    }
   }, [complete])
 
   return (

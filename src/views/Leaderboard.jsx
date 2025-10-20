@@ -13,7 +13,6 @@ export default () => {
     leaderboardFetch();
   }, [])
 
-  console.log(leaderboard)
   return (
     <div>
       <h1 className="font-bold text-3xl">Leaderboard</h1>
