@@ -12,7 +12,7 @@ import Leaderboard from "./views/Leaderboard";
 function App() {
   
   const listReducer = (state, { type, payload }) => {
-    const acceptedActions = ["add", "remove", "complete", "clear"];
+    const acceptedActions = ["add", "remove", "complete", "clear", "undoComplete"];
     if (!acceptedActions.includes(type)) {
       return state;
     }
@@ -31,6 +31,12 @@ function App() {
         return { ...state, inProgress: newProgress, complete: newComplete };
       case "clear":
         return { inProgress: [], complete: []}
+      case "undoComplete":
+        const progress = [...state.inProgress];
+        const complete = [...state.complete];
+        complete.splice(complete.indexOf(payload), 1);
+        progress.push(payload);
+        return { ...state, inProgress: progress, complete: complete };
       default:
         return state;
     }

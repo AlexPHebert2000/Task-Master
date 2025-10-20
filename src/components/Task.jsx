@@ -1,10 +1,6 @@
 export default ({ title, modes, dispatch }) => {
-  const handleRemove = (item) => {
-    dispatch({ type: "remove", payload: item });
-  };
-
-  const handleComplete = (item) => {
-    dispatch({ type: "complete", payload: item });
+  const handleClick = (item, action) => {
+    dispatch({ type: action, payload: item });
   };
 
   const actionButtons = {
@@ -12,7 +8,7 @@ export default ({ title, modes, dispatch }) => {
       <button
         className="text-red-500 hover:bg-red-500 hover:text-white border-1 rounded-sm px-1.5 relative -top-7 left-43"
         onClick={() => {
-          handleRemove(title);
+          handleClick(title, "remove");
         }}
       >
         ✕
@@ -22,10 +18,20 @@ export default ({ title, modes, dispatch }) => {
       <button
         className="text-green-700 hover:bg-green-700 hover:text-white border-1 rounded-sm px-1.5 relative -top-7 left-43"
         onClick={() => {
-          handleComplete(title);
+          handleClick(title, "complete");
         }}
       >
         ✓
+      </button>
+    ),
+    undo: (
+      <button
+        className="text-blue-500 hover:bg-blue-500 hover:text-white border-1 rounded-sm px-1.5 relative -top-7 left-43"
+        onClick={() => {
+          handleClick(title, "undoComplete");
+        }}
+      >
+        ↺
       </button>
     ),
   };

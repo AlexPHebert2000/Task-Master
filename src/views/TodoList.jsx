@@ -23,7 +23,7 @@ export default ({ inProgress, complete, dispatch, timeState }) => {
           <h2>Complete</h2>
           <div className={listStyle}>
             {complete.map((task, index) => (
-              <Task title={task} key={index} dispatch={dispatch} modes={[]} />
+              <Task title={task} key={index} dispatch={dispatch} modes={["undo"]} />
             ))}
           </div>
         </div>
