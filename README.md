@@ -15,19 +15,6 @@ When you load *Task Master* you first need to set your goals. You can make as ma
 
 ### Data and Networking
 
-*Task Master* uses [ZenQuotes API](https://docs.zenquotes.io/zenquotes-documentation/) to provide inspirational quotes. 
-
-**GET** `https://zenquotes.io/api/random`
-  ```json
-  [
-    {
-        "q": "Change is hardest at the beginning, messiest in the middle and best at the end.",
-        "a": "Robin Sharma",
-        "h": "<blockquote>&ldquo;Change is hardest at the beginning, messiest in the middle and best at the end.&rdquo; &mdash; <footer>Robin Sharma</footer></blockquote>"
-    }
-]
-```
-
 *Task Master* uses JSONBin to maintain its leaderboard. \([link](https://api.jsonbin.io/v3/b/68ed27bdae596e708f119844)\)
 ```json
 {
