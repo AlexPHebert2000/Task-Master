@@ -11,5 +11,8 @@ Complete task -> remove from in progress list and add to complete list -> update
 
 ## Full
 - Pomodoro Timer
+  - Timer hook
+  - Start / Stop
+  - Phase Change
+  - Select Phase
 - Styling
-- Drag and Drop ordering
